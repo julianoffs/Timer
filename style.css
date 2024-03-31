@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black;
+}
+
+#app {
+    text-align: center;
+}
+
+#timer {
+    font-size: 40px;
+    color: lime green;
+    margin: 20px;
+}
+
+#inputs input {
+    font-size: 16px;
+    margin: 10px;
+}
