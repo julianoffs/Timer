@@ -21,10 +21,10 @@ def run_timer(minutes, seconds):
         label.config(text=time_str)
         root.update_idletasks()
         time.sleep(1)
-    else:  # Esto se ejecuta solo si el temporizador no fue detenido
+    else:
         label.config(text="00:00")
-        for _ in range(3):  # Reproduce el sonido de "beep" 3 veces
-            beep()
+        # Play the beep sound
+        beep_sound.play()
 
 @app.route('/')
 def index():

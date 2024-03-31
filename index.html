@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temporizador</title>
     <link rel="stylesheet" href="style.css">
+	<audio id="beep-sound" src="beep.mp3" preload="auto"></audio>
 </head>
 <body>
     <div id="app">
@@ -19,4 +20,50 @@
     </div>
     <script src="script.js"></script>
 </body>
+
+<script>
+    var beepSound = document.getElementById('beep-sound');
+
+    $('#start').on('click', function () {
+        const minutes = parseInt($('#minutes').val());
+        const seconds = parseInt($('#seconds').val());
+
+        if (!isNaN(minutes) && !isNaN(seconds)) {
+            $.post('/start_timer', {
+                minutes: minutes,
+                seconds: seconds
+            });
+
+            // Remove the "hidden" class from the audio element
+            beepSound.classList.remove('hidden');
+        }
+    });
+
+    $('#stop').on('click', function () {
+        $.post('/stop_timer');
+
+        // Add the "hidden" class to the audio element
+        beepSound.classList.add('hidden');
+    });
+
+    setInterval(function () {
+        $.get('/', function (data) {
+            $('#timer').text(data.timer);
+
+            // If the timer is 00:00, play the beep sound
+            if (data.timer === '00:00') {
+                beepSound.play();
+            }
+        });
+    }, 1000);
+</script>
+
+<style>
+    .hidden {
+        display: none;
+    }
+
+    // ... (other CSS code)
+</style>
+
 </html>
